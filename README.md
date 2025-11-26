@@ -1,67 +1,141 @@
-# Payload Blank Template
+# Payload CMS Template with Auth & Email
 
-This template comes configured with the bare minimum to get started on anything you need.
+Готовый шаблон Payload CMS с предустановленной аутентификацией, ролевой моделью и email рассылкой.
 
-## Quick start
+## ✨ Предустановленные функции
 
-This template can be deployed directly from our Cloud hosting and it will setup MongoDB and cloud S3 object storage for media.
+- **🔐 Аутентификация** - Готовая система регистрации и входа
+- **👥 Ролевая модель** - Администраторы и пользователи с разными правами
+- **📧 Email система** - Настроенная отправка писем через Nodemailer
+- **💾 База данных** - Поддержка PostgreSQL и SQLite
+- **🐳 Docker** - Готовая контейнеризация для разработки
 
-## Quick Start - local setup
+## 🚀 Быстрый старт
 
-To spin up this template locally, follow these steps:
+### Требования
 
-### Clone
+- Node.js 18+
+- PostgreSQL (опционально, можно использовать SQLite)
+- PNPM (рекомендуется) или NPM
 
-After you click the `Deploy` button above, you'll want to have standalone copy of this repo on your machine. If you've already cloned this repo, skip to [Development](#development).
+### Установка
 
-### Development
+**Настройка переменных окружения (.env)**
 
-1. First [clone the repo](#clone) if you have not done so already
-2. `cd my-project && cp .env.example .env` to copy the example environment variables. You'll need to add the `MONGODB_URI` from your Cloud project to your `.env` if you want to use S3 storage and the MongoDB database that was created for you.
+## База данных (PostgreSQL или SQLite)
 
-3. `pnpm install && pnpm dev` to install dependencies and start the dev server
-4. open `http://localhost:3000` to open the app in your browser
+```env
+DATABASE_URL=postgresql://admin:password@localhost:5432/payload_auth_base
 
-That's it! Changes made in `./src` will be reflected in your app. Follow the on-screen instructions to login and create your first admin user. Then check out [Production](#production) once you're ready to build and serve your app, and [Deployment](#deployment) when you're ready to go live.
+# или для SQLite:
 
-#### Docker (Optional)
+DATABASE_URI=file:./payload.db
 
-If you prefer to use Docker for local development instead of a local MongoDB instance, the provided docker-compose.yml file can be used.
+# SMTP для email (mail.ru пример)
 
-To do so, follow these steps:
+SMTP_HOST=smtp.mail.ru
+SMTP_PORT=465
+SMTP_USER=your-email@mail.ru
+SMTP_PASS=your-app-password
 
-- Modify the `MONGODB_URI` in your `.env` file to `mongodb://127.0.0.1/<dbname>`
-- Modify the `docker-compose.yml` file's `MONGODB_URI` to match the above `<dbname>`
-- Run `docker-compose up` to start the database, optionally pass `-d` to run in the background.
+# Секретный ключ
 
-## How it works
+PAYLOAD_SECRET=your-random-secret-key3.
+```
 
-The Payload config is tailored specifically to the needs of most websites. It is pre-configured in the following ways:
+**Установка зависимостей**
 
-### Collections
+```bash
+pnpm install
+```
 
-See the [Collections](https://payloadcms.com/docs/configuration/collections) docs for details on how to extend this functionality.
+**Запуск разработки**
 
-- #### Users (Authentication)
+```bash
+pnpm dev
+```
 
-  Users are auth-enabled collections that have access to the admin panel.
+Админка будет доступна по: http://localhost:3000/admin
 
-  For additional help, see the official [Auth Example](https://github.com/payloadcms/payload/tree/main/examples/auth) or the [Authentication](https://payloadcms.com/docs/authentication/overview#authentication-overview) docs.
+## 🏗️ Структура проекта
 
-- #### Media
+### Коллекции
 
-  This is the uploads enabled collection. It features pre-configured sizes, focal point and manual resizing to help you manage your pictures.
+- **Users** - Пользователи с ролями (admin/user)
+- **Posts** - Статьи блога с поддержкой кода
+- **Categories** - Категории статей
+- **Tags** - Теги статей
+- **Pages** - Статические страницы
+- **Media** - Медиафайлы
 
-### Docker
+### Особенности
 
-Alternatively, you can use [Docker](https://www.docker.com) to spin up this template locally. To do so, follow these steps:
+- ✅ Подсветка синтаксиса в статьях
+- ✅ Ролевая модель доступа
+- ✅ Email уведомления
+- ✅ PostgreSQL/SQLite поддержка
+- ✅ Docker контейнеризация
 
-1. Follow [steps 1 and 2 from above](#development), the docker-compose file will automatically use the `.env` file in your project root
-1. Next run `docker-compose up`
-1. Follow [steps 4 and 5 from above](#development) to login and create your first admin user
+## 📧 Настройка Email
 
-That's it! The Docker instance will help you get up and running quickly while also standardizing the development environment across your teams.
+Проект использует Nodemailer для отправки email. Для тестирования:
 
-## Questions
+1. Настройте SMTP в `.env`
+2. Откройте http://localhost:3000/email-check для тестовой отправки
 
-If you have any issues or questions, reach out to us on [Discord](https://discord.com/invite/payload) or start a [GitHub discussion](https://github.com/payloadcms/payload/discussions).
+## 🐳 Docker поддержка
+
+# Запуск PostgreSQL
+
+`docker-compose up -d postgres`
+
+# Остановка
+
+`docker-compose down`
+
+## 🔐 Ролевая модель
+
+- **Администраторы** - Полный доступ ко всем функциям
+- **Пользователи** - Могут видеть/редактировать только свой профиль
+
+## 🎨 Разработка
+
+Проект использует:
+
+- Payload CMS 3.x
+- React 19
+- TypeScript
+- PostgreSQL/SQLite
+- Nodemailer для email
+
+## 📝 Команды
+
+```bash
+# Разработка
+
+pnpm dev
+
+# Сборка
+
+pnpm build
+
+# Запуск production
+
+pnpm start
+
+# Генерация типов
+
+pnpm generate:types
+```
+
+## 🤝 Поддержка
+
+При возникновении вопросов:
+
+1. Проверьте настройки в `.env`
+2. Убедитесь, что база данных доступна
+3. Проверьте логи в терминале
+
+---
+
+_Готовый production шаблон Payload CMS с аутентификацией, ролевой моделью и email системой._
