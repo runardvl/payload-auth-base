@@ -1,0 +1,6 @@
+export { LoginForm } from './LoginForm/LoginForm'
+export { AccountForm } from './AccountForm/AccountForm'
+export { LogoutTemplate } from './LogoutTemplate/LogoutTemplate'
+export { CreateAccountForm } from './CreateAccountForm/CreateAccountForm'
+export { RecoverPasswordForm } from './RecoverPasswordForm/RecoverPasswordForm'
+export { ResetPasswordForm } from './ResetPasswordForm/ResetPasswordForm'
