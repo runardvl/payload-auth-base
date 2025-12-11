@@ -1,0 +1,25 @@
+$breakpoint-xs-width: 400px;
+$breakpoint-s-width: 768px;
+$breakpoint-m-width: 1024px;
+$breakpoint-l-width: 1440px;
+
+@mixin extra-small-break {
+  @media (min-width: #{$breakpoint-xs-width}) {
+    @content;
+  }
+}
+@mixin small-break {
+  @media (min-width: #{$breakpoint-s-width}) {
+    @content;
+  }
+}
+@mixin mid-break {
+  @media (min-width: #{$breakpoint-m-width}) {
+    @content;
+  }
+}
+@mixin large-break {
+  @media (min-width: #{$breakpoint-l-width}) {
+    @content;
+  }
+}

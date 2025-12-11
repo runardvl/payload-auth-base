@@ -5,6 +5,7 @@ import { admins } from './access/collections/admins'
 import { protectRoles } from './hooks/protectRoles'
 import { welcomeEmail } from './hooks/welcomeEmail'
 import { checkRole } from './access/checkRole'
+import { anyone } from './access/anyone'
 
 export const Users: CollectionConfig = {
   slug: 'users',
@@ -21,12 +22,32 @@ export const Users: CollectionConfig = {
       secure: true,
       domain: process.env.COOKIE_DOMAIN,
     },
+    forgotPassword: {
+      generateEmailHTML: ({ token, user } = {}) => {
+        const resetPasswordURL = `${process.env.NEXT_PUBLIC_SERVER_URL}/reset-password?token=${token || ''}`
+
+        return `
+          <!doctype html>
+          <html>
+            <body>
+              <h1>Восстановление пароля</h1>
+              <p>Здравствуйте, ${user.email}!</p>
+              <p>Для восстановления пароля перейдите по ссылке ниже:</p>
+              <p>
+                <a href="${resetPasswordURL}">${resetPasswordURL}</a>
+              </p>
+              <p>Если вы не запрашивали восстановление пароля, проигнорируйте это письмо.</p>
+            </body>
+          </html>
+          `
+      },
+    },
   },
   access: {
     read: adminsAndUser, // Пользователи видят только себя, админы - всех
     update: adminsAndUser, // Пользователи могут обновлять только себя, админы - всех
     delete: admins, // Только админы могут удалять
-    create: admins, // Только админы могут создавать пользователей
+    create: anyone, // Только админы могут создавать пользователей
     unlock: admins,
     admin: ({ req: { user } }) => checkRole(['admin'], user), // Только админы могут заходить в админ-панель
   },
@@ -59,13 +80,13 @@ export const Users: CollectionConfig = {
         { label: 'Пользователь', value: 'user' },
       ],
       defaultValue: 'user',
-      required: true,
-      label: 'Роли',
+      required: false,
+      label: 'Roles',
       hasMany: true,
       saveToJWT: true,
       access: {
         read: () => true, // Все могут видеть поле role
-        create: fieldsAdmins,
+        create: () => true,
         update: fieldsAdmins,
       },
       hooks: {
