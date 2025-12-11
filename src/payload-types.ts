@@ -131,7 +131,7 @@ export interface User {
   id: number;
   firstName: string;
   lastName?: string | null;
-  roles: ('admin' | 'user')[];
+  roles?: ('admin' | 'user')[] | null;
   updatedAt: string;
   createdAt: string;
   email: string;

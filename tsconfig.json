@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-    "lib": [
-      "DOM",
-      "DOM.Iterable",
-      "ES2022"
-    ],
+    "lib": ["DOM", "DOM.Iterable", "ES2022"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -23,22 +19,16 @@
       }
     ],
     "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-      "@payload-config": [
-        "./src/payload.config.ts"
-      ]
+      "@/*": ["./src/*"],
+      "@payload-config": ["src/payload.config.ts"],
+      "@payload-types": ["src/payload-types.ts"],
+      "@frontend-pages": ["src/app/(frontend)/(pages)"],
+      "@frontend-widgets": ["src/app/(frontend)/widgets"],
+      "@frontend-features": ["src/app/(frontend)/features"],
+      "@frontend-shared": ["src/app/(frontend)/shared"]
     },
-    "target": "ES2022",
+    "target": "ES2022"
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
 }
