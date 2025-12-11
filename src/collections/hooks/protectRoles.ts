@@ -7,12 +7,10 @@ export const protectRoles: FieldHook<{ id: string } & User> = ({ data, req }) =>
   const isAdmin = req.user?.roles?.includes('admin') ?? false
 
   if (!isAdmin) {
-    const roles = new Set(data?.roles || [])
-    roles.add('user')
-    return [...roles].filter((role) => role === 'user')
+    return ['user']
   }
 
-  const userRoles = new Set(data?.roles || [])
-  userRoles.add('user')
-  return [...userRoles]
+  const roles = new Set(data?.roles || [])
+  roles.add('user')
+  return [...roles]
 }
